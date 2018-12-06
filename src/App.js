@@ -14,7 +14,6 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
-
 // Material icons
 import DayIcon from '@material-ui/icons/WbSunnyOutlined';
 import NightIcon from '@material-ui/icons/Brightness3Outlined';
@@ -46,6 +45,11 @@ const styles = theme => ({
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.handleNightModeChange = this.handleNightModeChange.bind(this);
+    this.gotData = this.gotData.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
+
     this.state = {
         columnDefs: [
             { headerName: "Name", field: "name", pinned: true, filter: "agTextColumnFilter", rowDrag: true, checkboxSelection: true },
@@ -64,9 +68,6 @@ class App extends Component {
         gridClass: 'ag-theme-balham',
         showPagination: false,
     }
-    this.handleNightModeChange = this.handleNightModeChange.bind(this);
-    this.gotData = this.gotData.bind(this);
-    this.handlePagination = this.handlePagination.bind(this);
   }
 
   componentDidMount() {
@@ -77,14 +78,25 @@ class App extends Component {
     httpHelper(httpObj, this.gotData);
   }
 
+  /**
+   * HTTP Response.
+   * @param  {Object} data [HTTP Response Object.]
+  */
   gotData({ data }) {
     this.setState({ rowData: data });
   }
 
+  /**
+   * Pagination Management. But this is not working, Ag-Grid is not working in tandem with state change of React.
+   * @return {[type]} [description]
+   */
   handlePagination() {
     this.setState({ showPagination: !this.state.showPagination });
   }
 
+  /**
+   * Handle night mode change.
+  */
   handleNightModeChange() {
     const { updateTheme, nightMode } = this.props;
 
@@ -99,7 +111,7 @@ class App extends Component {
 
   render() {
     const { classes, nightMode } = this.props;
-    const { showPagination } = this.state;
+    const { columnDefs, rowData, showPagination, gridClass } = this.state;
 
     return (
       <div className={classes.root}>
@@ -119,7 +131,7 @@ class App extends Component {
           <Grid
             item
             xs={12}
-            className={this.state.gridClass}
+            className={gridClass}
             style={{
             height: window.innerHeight-100,
             margin: '20px 50px',
@@ -129,12 +141,12 @@ class App extends Component {
                 enableSorting
                 enableFilter
                 enableColResize
-                rowDragManaged={!this.state.showPagination}
+                rowDragManaged={!showPagination}
                 rowSelection='multiple'
-                pagination={this.state.showPagination}
-                paginationAutoPageSize={this.state.showPagination}
-                columnDefs={this.state.columnDefs}
-                rowData={this.state.rowData}>
+                pagination={showPagination}
+                paginationAutoPageSize={showPagination}
+                columnDefs={columnDefs}
+                rowData={rowData}>
             </AgGridReact>
           </Grid>
         </Grid>
@@ -144,9 +156,3 @@ class App extends Component {
 }
 
 export default withStyles(styles)(App);
-
-// <Tooltip title="Show Pagination" enterDelay={300}>
-//   <IconButton onClick={this.handlePagination} color="inherit">
-//     {showPagination ? <PagesIcon /> : <SubjectIcon />}
-//   </IconButton>
-// </Tooltip>
