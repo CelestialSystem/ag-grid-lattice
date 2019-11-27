@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 // Material-UI
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme } from '@material-ui/core/styles';
 // our App
 import App from './App';
 
