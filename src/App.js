@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 // Material-UI
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, IconButton, Grid, Toolbar, Tooltip, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import httpHelper from './helper/httpHelper';
-
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
 // Material icons
 import DayIcon from '@material-ui/icons/WbSunnyOutlined';
 import NightIcon from '@material-ui/icons/Brightness3Outlined';
-
+import LatticeAgGgrid from './components/LatticeAgGrid.jsx';
 import 'typeface-roboto';
+
 
 // Custom Style
 const styles = theme => ({
@@ -33,9 +24,9 @@ const styles = theme => ({
     color: theme.palette.primary.contrastText
   },
   widget: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 4
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(4)
   },
   link: {
     color: theme.palette.text.secondary
@@ -65,7 +56,7 @@ class App extends Component {
             }
         ],
         rowData: [],
-        gridClass: 'ag-theme-balham',
+        // gridClass: 'ag-theme-material',
         showPagination: false,
     }
   }
@@ -100,24 +91,23 @@ class App extends Component {
   handleNightModeChange() {
     const { updateTheme, nightMode } = this.props;
 
-    if (this.state.gridClass === 'ag-theme-balham') {
-      this.setState({ gridClass: 'ag-theme-balham-dark' });
-    } else {
-      this.setState({ gridClass: 'ag-theme-balham' });
-    }
+    // if (this.state.gridClass === 'ag-theme-material') {
+    //   this.setState({ gridClass: 'ag-theme-balham-dark' });
+    // } else {
+    //   this.setState({ gridClass: 'ag-theme-material' });
+    // }
 
     updateTheme(!nightMode);
   }
 
   render() {
     const { classes, nightMode } = this.props;
-    const { columnDefs, rowData, showPagination, gridClass } = this.state;
-
+    const { columnDefs, rowData, showPagination } = this.state;
     return (
-      <div className={classes.root}>
+      <div>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="subtitle1" color="inherit" className={classes.flex}>
               AG-Grid
             </Typography>
             <Tooltip title="Toggle Night Mode" enterDelay={300}>
@@ -128,27 +118,19 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container>
-          <Grid
-            item
-            xs={12}
-            className={gridClass}
-            style={{
-            height: window.innerHeight-100,
-            margin: '20px 50px',
-          }}>
-            <AgGridReact
-                animateRows
-                enableSorting
-                enableFilter
-                enableColResize
-                rowDragManaged={!showPagination}
-                rowSelection='multiple'
-                pagination={showPagination}
-                paginationAutoPageSize={showPagination}
-                columnDefs={columnDefs}
-                rowData={rowData}>
-            </AgGridReact>
-          </Grid>
+          <LatticeAgGgrid
+            animateRows
+            enableSorting
+            enableFilter
+            enableColResize
+            rowDragManaged={!showPagination}
+            pagination={showPagination}
+            paginationAutoPageSize={showPagination}
+            columnDefs={columnDefs}
+            rowData={rowData}
+            rowSelection="multiple"
+          >
+          </LatticeAgGgrid>
         </Grid>
       </div>
     );
