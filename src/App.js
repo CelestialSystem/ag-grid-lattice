@@ -123,6 +123,10 @@ class App extends Component {
             columnDefs={columnDefs}
             rowData={rowData}
             rowSelection="multiple"
+            containerStyle={{
+                height: window.innerHeight-100,
+                margin: '20px 20px',
+            }}
           >
           </LatticeAgGgrid>
         </Grid>
