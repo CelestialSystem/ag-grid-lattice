@@ -33,7 +33,10 @@ class LatticeAgGrid extends Component {
         item
         xs={12}
         className={this.state.gridClass}
-        style={this.props.containerStyle}
+        style={{
+          height: window.innerHeight-100,
+          margin: '20px 20px',
+        }}
       >
         <AgGridReact
             {...this.props}

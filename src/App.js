@@ -7,8 +7,8 @@ import httpHelper from './helper/httpHelper';
 // Material icons
 import DayIcon from '@material-ui/icons/WbSunnyOutlined';
 import NightIcon from '@material-ui/icons/Brightness3Outlined';
-// import LatticeAgGgrid from './components/LatticeAgGrid.jsx';
-import LatticeAgGgrid from '@latticejs/ag-grid';
+import LatticeAgGgrid from './components/LatticeAgGrid.jsx';
+// import LatticeAgGgrid from '@latticejs/ag-grid';
 import '@latticejs/ag-grid/styles/lattice-ag-grid-style.css';
 
 import 'typeface-roboto';
@@ -94,6 +94,10 @@ class App extends Component {
     updateTheme(!nightMode);
   }
 
+  getGrid = (gridObj) => {
+    console.log(gridObj);
+  }
+
   render() {
     const { classes, nightMode } = this.props;
     const { columnDefs, rowData, showPagination } = this.state;
@@ -123,10 +127,11 @@ class App extends Component {
             columnDefs={columnDefs}
             rowData={rowData}
             rowSelection="multiple"
-            containerStyle={{
-                height: window.innerHeight-100,
-                margin: '20px 20px',
-            }}
+            // containerStyle={{
+            //     height: window.innerHeight-100,
+            //     margin: '20px 20px',
+            // }}
+            afterGridCreated={this.getGrid}
           >
           </LatticeAgGgrid>
         </Grid>
