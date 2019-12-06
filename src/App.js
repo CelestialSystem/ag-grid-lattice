@@ -7,8 +7,8 @@ import httpHelper from './helper/httpHelper';
 // Material icons
 import DayIcon from '@material-ui/icons/WbSunnyOutlined';
 import NightIcon from '@material-ui/icons/Brightness3Outlined';
-import LatticeAgGgrid from './components/LatticeAgGrid.jsx';
-// import LatticeAgGgrid from '@latticejs/ag-grid';
+import LatticeAgGrid from './components/LatticeAgGrid.jsx';
+// import LatticeAgGrid from '@latticejs/ag-grid';
 import '@latticejs/ag-grid/styles/lattice-ag-grid-style.css';
 
 import 'typeface-roboto';
@@ -94,7 +94,10 @@ class App extends Component {
     updateTheme(!nightMode);
   }
 
-  getGrid = (gridObj) => {
+  /**
+   * Function used to get ag-Grid properties.
+  */
+  getGrid(gridObj) {
     console.log(gridObj);
   }
 
@@ -116,7 +119,7 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container>
-          <LatticeAgGgrid
+          <LatticeAgGrid
             animateRows
             enableSorting
             enableFilter
@@ -127,13 +130,13 @@ class App extends Component {
             columnDefs={columnDefs}
             rowData={rowData}
             rowSelection="multiple"
-            // containerStyle={{
-            //     height: window.innerHeight-100,
-            //     margin: '20px 20px',
-            // }}
+            gridContainerStyle={{
+              height: window.innerHeight-100,
+              margin: '10px 10px',
+            }}
             afterGridCreated={this.getGrid}
           >
-          </LatticeAgGgrid>
+          </LatticeAgGrid>
         </Grid>
       </div>
     );
