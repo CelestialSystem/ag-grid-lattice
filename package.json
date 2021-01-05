@@ -19,7 +19,7 @@
     "@latticejs/ag-grid": "file:../lattice/packages/ag-grid",
     "ag-grid-community": "^19.1.4",
     "ag-grid-react": "^19.1.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.3",
